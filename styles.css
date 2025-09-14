@@ -1,0 +1,450 @@
+:root{
+  --bg:#000000; --card:#111111; --muted:#888888; --accent:#ffffff; --glass: rgba(255,255,255,0.1);
+  --radius:14px; --max-width:1100px;
+  --ff-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:var(--ff-sans); background:#000000;
+  color:#ffffff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  line-height:1.45; padding:0; width:100%;
+  display:flex; justify-content:center;
+}
+.site{width:100%; max-width:100%}
+a{color:inherit; text-decoration:none}
+
+/* Transparent Navigation */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:transparent; backdrop-filter:none;
+  padding:30px 0; display:flex; align-items:center; justify-content:center; width:100%;
+  transition:opacity 0.5s ease, visibility 0.5s ease;
+}
+.overlay{position:fixed; inset:0; background:rgba(0,0,0,0.5); opacity:0; visibility:hidden; transition:opacity 0.3s ease, visibility 0.3s ease; z-index:900}
+.overlay.show{opacity:1; visibility:visible}
+.sidebar{
+  position:fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  width: 320px;
+  max-width: 90vw;
+  background: #000;
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  padding: 40px 24px 24px;
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), visibility 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+.sidebar nav a {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 12px 0;
+  text-align: center;
+  width: 100%;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.sidebar nav a:hover {
+  background: rgba(255,255,255,0.08);
+}
+.sidebar.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) scale(1);
+}
+#hamburger{position:fixed; top:20px; left:20px; width:38px; height:28px; background:transparent; border:none; z-index:1100; display:none; cursor:pointer}
+#hamburger .line{display:block; height:3px; width:100%; background:#000000; border-radius:2px; margin:6px 0}
+.brand{display:flex; gap:12px; align-items:center}
+.logo{
+  width:48px; height:48px; border-radius:10px; background:#000000;
+  display:inline-grid; place-items:center; font-weight:700; font-size:18px; color:#ffffff;
+}
+nav{display:flex; gap:80px; align-items:center; justify-content:center; width:100%; max-width:1200px}
+nav a{color:#000000; font-size:18px; font-weight:600; text-decoration:none; transition:opacity 0.3s ease}
+nav a:hover{opacity:0.8}
+
+/* Hide navigation when scrolling past hero */
+header.hidden{
+  opacity:0; visibility:hidden;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  nav{display:none}
+  #hamburger{display:block}
+}
+
+@media (min-width: 901px){
+  .sidebar{display:none}
+  .overlay{display:none}
+}
+.btn{background:#ffffff; padding:10px 14px; border-radius:10px; color:#000000; font-weight:700}
+.btn.secondary{background:transparent; border:1px solid #ffffff; color:#ffffff; font-weight:600}
+
+/* Transparent Hero */
+.hero{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+  background:url('images/hero.jpg') center/cover no-repeat; padding:120px 0 60px;
+  position:relative; width:100vw; margin:0; margin-left:calc(-50vw + 50%);
+}
+.hero::before{
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.4); z-index:1;
+}
+
+/* Add shadow to bottom of hero image to blend with background */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.hero-content{position:relative; z-index:2}
+.hero-content h1{font-size:64px; margin:0 0 20px; letter-spacing:-0.5px; font-weight:700; color:#ffffff}
+.hero-content p{font-size:20px; margin:0; color:#ffffff; max-width:600px; margin:0 auto 30px; font-weight:400}
+.hero-ctas{display:flex; gap:20px; align-items:center; justify-content:center; margin-top:40px}
+
+/* Make hero smaller on mobile */
+@media (max-width: 600px) {
+  .hero {
+    min-height: 70vh;
+    padding: 60px 0 20px;
+    background-size: cover;
+  }
+  .hero-content h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .hero-content p {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+}
+
+/* Rotated Image Animation */
+.rotated-image{
+  transform:rotate(45deg); transition:all 1.5s ease-in-out;
+  width:200px; height:200px; object-fit:cover; border-radius:20px;
+  margin:20px; display:inline-block; position:relative;
+  z-index: 1;
+}
+
+/* Add shadow to bottom of rotated images in About/Earlier Life */
+.rotated-image {
+  box-shadow: 0 24px 48px -16px rgba(0,0,0,0.45);
+}
+
+/* First image - positioned behind */
+.rotated-image:first-child{
+  transform:rotate(45deg) translateX(0);
+  z-index: 1;
+  margin-right: -50px; /* 25% overlap - shows 75% of first image */
+}
+
+/* Second image - positioned on top */
+.rotated-image:last-child{
+  transform:rotate(45deg) translateX(0);
+  z-index: 2;
+  margin-left: -50px; /* 25% overlap - shows 75% of first image */
+}
+
+/* Hover effect - first image moves out slowly */
+.image-container:hover .rotated-image:first-child{
+  transform:rotate(45deg) translateX(-20px); /* 10% movement */
+  transition:all 2s ease-in-out;
+}
+
+/* Image Container for About/Earlier Life */
+.image-container{
+  display:flex; gap:0; justify-content:center; align-items:center; margin:40px 0;
+  position:relative;
+}
+
+/* Company Logos Section */
+.company-logos{
+  padding:60px 32px; background:rgba(255,255,255,0.02); margin:0;
+}
+.company-logos h2{font-size:42px; margin:0 0 40px; text-align:center; font-weight:700; color:#ffffff}
+.logos-container{
+  display:flex; justify-content:center; align-items:center; gap:60px; flex-wrap:wrap;
+}
+.company-logo{
+  height:150px; width:auto; opacity:0.7; transition:opacity 0.3s ease;
+}
+.company-logo:hover{opacity:1}
+
+/* SECTIONS */
+.section{margin:80px 0; padding:0 32px}
+.section h2{font-size:42px; margin:0 0 40px; text-align:center; font-weight:700; color:#ffffff}
+
+/* SECTION SEPARATORS */
+.section-separator{
+  text-align:center; margin:60px 0; font-size:48px; color:#ffffff; font-weight:300;
+  opacity:0.6; letter-spacing:20px;
+}
+
+/* COMPANIES GRID */
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:40px}
+@media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:640px){ .grid{grid-template-columns:1fr} }
+
+.card{
+  background:rgba(255,255,255,0.05); padding:30px; border-radius:20px; 
+  border:1px solid rgba(255,255,255,0.1); text-align:center;
+  transition:transform 0.3s ease, background 0.3s ease;
+}
+.card:hover{transform:translateY(-5px); background:rgba(255,255,255,0.08)}
+.card .logo-thumb{
+  width:80px; height:80px; margin:0 auto 20px; border-radius:20px; 
+  background:#ffffff; display:grid; place-items:center; font-weight:700; color:#000000; font-size:24px;
+}
+.card h3{margin:0 0 15px; font-size:20px; font-weight:400}
+.card p{margin:0; color:var(--muted); font-size:16px; line-height:1.6}
+
+/* Vertical Companies Layout */
+.companies-vertical{display:flex; flex-direction:column; gap:40px; margin-top:40px}
+.company-item{
+  display:flex; gap:30px; align-items:center; padding:30px;
+  background:rgba(255,255,255,0.03); border-radius:20px; border:1px solid rgba(255,255,255,0.1);
+  transition:transform 0.3s ease, background 0.3s ease;
+}
+.company-item:hover{transform:translateY(-5px); background:rgba(255,255,255,0.05)}
+.company-logo-container{flex:0 0 200px}
+.company-logo-img{width:200px; height:200px; object-fit:contain; border-radius:20px}
+.company-details{flex:1}
+.company-details h3{font-size:24px; margin:0 0 15px; font-weight:400; color:#ffffff}
+.company-details p{font-size:16px; line-height:1.6; color:var(--muted); margin:0 0 15px}
+.company-details ul{list-style:none; padding:0; margin:0}
+.company-details li{
+  padding:4px 0; color:var(--muted); font-size:14px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.company-details li:last-child{border-bottom:none}
+
+/* ABOUT & EARLIER LIFE */
+.about, .earlier-life{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin:80px 0}
+@media (max-width:880px){ .about, .earlier-life{grid-template-columns:1fr; gap:40px} }
+.about .pill{background:rgba(255,255,255,0.1); padding:8px 16px; border-radius:999px; color:#ffffff; font-weight:600; display:inline-block; margin-bottom:20px}
+.about-text, .earlier-life-text{font-size:18px; line-height:1.8; color:#ffffff}
+.about-text h2, .earlier-life-text h2{color:#ffffff; font-size:42px; margin:0 0 20px; font-weight:700}
+.about-text h3, .earlier-life-text h3{color:#ffffff; font-size:28px; margin:0 0 20px; font-weight:700}
+
+/* CONTACT SECTION */
+.contact{text-align:center; margin:80px 0}
+.contact h2{font-size:42px; margin:0 0 20px; font-weight:700; color:#ffffff}
+.contact p{font-size:18px; color:#ffffff; margin:0 0 40px}
+.social-links{display:flex; gap:40px; justify-content:center; margin-top:40px}
+.social-link{
+  display:flex; align-items:center; gap:10px; padding:15px 25px;
+  background:rgba(255,255,255,0.05); border-radius:50px; border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.3s ease; text-decoration:none; color:#ffffff;
+}
+.social-link:hover{
+  background:rgba(255,255,255,0.1); transform:translateY(-2px);
+}
+.social-link svg{width:24px; height:24px; fill:currentColor}
+
+footer{
+  margin-top:80px; padding:40px 32px; color:#ffffff; font-size:14px; 
+  text-align:center; border-top:1px solid rgba(255,255,255,0.1);
+}
+.small{font-size:13px; color:#ffffff}
+
+/* modal */
+.modal-backdrop{position:fixed; inset:0; background:rgba(1,6,15,0.6); display:none; align-items:center; justify-content:center; z-index:1200}
+.modal{background:#03101a; padding:20px; border-radius:12px; width:100%; max-width:520px; border:1px solid rgba(255,255,255,0.04)}
+.close{background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+input,textarea{width:100%; padding:10px; background:transparent; border:1px solid rgba(255,255,255,0.06); border-radius:8px; color:inherit}
+.form-row{display:flex; gap:10px}
+.hidden{display:none}
+.muted{color:var(--muted)}
+
+/* --- Responsive improvements --- */
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+    font-size: 16px;
+  }
+  .site {
+    max-width: 100vw;
+    padding: 0;
+  }
+  header {
+    padding: 18px 0;
+  }
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  .hero-content p {
+    font-size: 16px;
+  }
+  .company-logos h2,
+  .section h2,
+  .about-text h2,
+  .earlier-life-text h2,
+  .contact h2 {
+    font-size: 28px;
+  }
+  .logos-container {
+    gap: 20px;
+  }
+  .company-logo {
+    height: 80px;
+  }
+  .company-logo-img {
+    width: 100px;
+    height: 100px;
+  }
+  .company-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px;
+    gap: 18px;
+  }
+  .company-logo-container {
+    flex: 0 0 100px;
+  }
+  .about, .earlier-life {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin: 40px 0;
+  }
+  .image-container {
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .rotated-image {
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+  }
+  .section-separator {
+    font-size: 28px;
+    margin: 30px 0;
+    letter-spacing: 8px;
+  }
+  .social-links {
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+  }
+  .social-link {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  footer {
+    padding: 20px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .site {
+    max-width: 98vw;
+    padding: 0 10px;
+  }
+  .hero-content h1 {
+    font-size: 48px;
+  }
+  .company-logo {
+    height: 100px;
+  }
+  .company-logo-img {
+    width: 140px;
+    height: 140px;
+  }
+  .company-item {
+    gap: 20px;
+    padding: 22px;
+  }
+  .about, .earlier-life {
+    gap: 32px;
+    margin: 60px 0;
+  }
+  .rotated-image {
+    width: 160px;
+    height: 160px;
+    margin: 14px;
+  }
+  .section-separator {
+    font-size: 36px;
+    margin: 40px 0;
+    letter-spacing: 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .site {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+/* Ensure images and containers never overflow */
+img, .company-logo-img, .rotated-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make sidebar scrollable on small screens */
+.sidebar {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Prevent horizontal scroll */
+body, html {
+  overflow-x: hidden;
+}
+
+/* Sidebar improvements for mobile */
+.sidebar {
+  width: 80vw;
+  max-width: 320px;
+  padding: 60px 16px 16px;
+  box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+.sidebar nav {
+  flex-direction: column;
+  gap: 24px;
+}
+.sidebar nav a {
+  font-size: 20px;
+  padding: 12px 0;
+}
+.overlay {
+  background: rgba(0,0,0,0.6);
+}
+@media (max-width: 900px) {
+  .sidebar {
+    display: flex;
+  }
+  .overlay {
+    display: block;
+  }
+}
