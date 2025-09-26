@@ -144,8 +144,9 @@ header.hidden{
 }
 
 /* Rotated Image Animation */
+
 .rotated-image{
-  transform:rotate(45deg); transition:all 1.5s ease-in-out;
+  transform:rotate(12deg); transition:transform 1.2s cubic-bezier(0.4,0,0.2,1), z-index 0.3s;
   width:200px; height:200px; object-fit:cover; border-radius:20px;
   margin:20px; display:inline-block; position:relative;
   z-index: 1;
@@ -156,24 +157,31 @@ header.hidden{
   box-shadow: 0 24px 48px -16px rgba(0,0,0,0.45);
 }
 
-/* First image - positioned behind */
+
+/* First image - bottom image */
 .rotated-image:first-child{
-  transform:rotate(45deg) translateX(0);
+  transform:rotate(12deg) translateX(0);
   z-index: 1;
-  margin-right: -50px; /* 25% overlap - shows 75% of first image */
+  margin-right: -80px; /* overlap so top image covers about 70% */
 }
 
-/* Second image - positioned on top */
+/* Second image - top image */
 .rotated-image:last-child{
-  transform:rotate(45deg) translateX(0);
+  transform:rotate(12deg) translateX(0);
   z-index: 2;
-  margin-left: -50px; /* 25% overlap - shows 75% of first image */
+  margin-left: -80px;
 }
 
-/* Hover effect - first image moves out slowly */
+/* Hover effect - top image moves to reveal 70% of bottom image */
+.image-container:hover .rotated-image:last-child{
+  transform:rotate(8deg) translateX(-120px) scale(1.04);
+  transition:transform 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Optionally, add a slight scale to the bottom image for effect */
 .image-container:hover .rotated-image:first-child{
-  transform:rotate(45deg) translateX(-20px); /* 10% movement */
-  transition:all 2s ease-in-out;
+  transform:rotate(16deg) translateX(0) scale(1.01);
+  transition:transform 1.2s cubic-bezier(0.4,0,0.2,1);
 }
 
 /* Image Container for About/Earlier Life */
@@ -257,10 +265,10 @@ header.hidden{
 .contact p{font-size:18px; color:#ffffff; margin:0 0 40px}
 .social-links{display:flex; gap:40px; justify-content:center; margin-top:40px}
 .social-link{
-  display:flex; align-items:center; gap:10px; padding:6px 25px; 
+  display:flex; align-items:center; gap:10px; padding:6px 25px; /* reduced vertical padding */
   background:rgba(255,255,255,0.05); border-radius:50px; border:1px solid rgba(255,255,255,0.1);
   transition:all 0.3s ease; text-decoration:none; color:#ffffff;
-   min-height:32px; 
+  min-height:32px; /* ensure a minimum but short height */
 }
 .social-link:hover{
   background:rgba(255,255,255,0.1); transform:translateY(-2px);
@@ -270,6 +278,7 @@ header.hidden{
   height:16px; /* reduce height only */
   fill:currentColor;
 }
+
 footer{
   margin-top:80px; padding:40px 32px; color:#ffffff; font-size:14px; 
   text-align:center; border-top:1px solid rgba(255,255,255,0.1);
