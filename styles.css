@@ -257,15 +257,19 @@ header.hidden{
 .contact p{font-size:18px; color:#ffffff; margin:0 0 40px}
 .social-links{display:flex; gap:40px; justify-content:center; margin-top:40px}
 .social-link{
-  display:flex; align-items:center; gap:10px; padding:15px 25px;
+  display:flex; align-items:center; gap:10px; padding:6px 25px; 
   background:rgba(255,255,255,0.05); border-radius:50px; border:1px solid rgba(255,255,255,0.1);
   transition:all 0.3s ease; text-decoration:none; color:#ffffff;
+   min-height:32px; 
 }
 .social-link:hover{
   background:rgba(255,255,255,0.1); transform:translateY(-2px);
 }
-.social-link svg{width:24px; height:24px; fill:currentColor}
-
+.social-link svg{
+  width:24px;
+  height:16px; /* reduce height only */
+  fill:currentColor;
+}
 footer{
   margin-top:80px; padding:40px 32px; color:#ffffff; font-size:14px; 
   text-align:center; border-top:1px solid rgba(255,255,255,0.1);
