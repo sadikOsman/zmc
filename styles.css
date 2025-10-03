@@ -156,7 +156,11 @@ header.hidden{
 .rotated-image {
   box-shadow: 0 24px 48px -16px rgba(0,0,0,0.45);
 }
-
+@media (max-width: 768px) {
+  .rotated-image {
+    display: none; 
+  }
+}
 
 /* First image - bottom image */
 .rotated-image:first-child{
